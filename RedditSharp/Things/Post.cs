@@ -140,6 +140,21 @@ namespace RedditSharp.Things
         [JsonProperty("subreddit")]
         public string SubredditName { get; private set; }
 
+        /// <summary>
+        /// The start time of the event associated with this post.
+        /// Can be <c>null</c> if the post has no event.
+        /// </summary>
+        [JsonProperty("event_start")]
+        [JsonConverter(typeof(UnixTimestampConverter))]
+        public DateTime? EventStart { get; private set; }
+
+        /// <summary>
+        /// The end time of the event associated with this post.
+        /// Can be <c>null</c> if the post has no event.
+        /// </summary>
+        [JsonProperty("event_end")]
+        [JsonConverter(typeof(UnixTimestampConverter))]
+        public DateTime? EventEnd { get; private set; }
 
         /// <summary>
         /// Prefix for fullname. Includes trailing underscore
