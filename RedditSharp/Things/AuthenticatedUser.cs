@@ -61,7 +61,7 @@ namespace RedditSharp.Things
         /// <summary>
         /// Get a <see cref="Listing{T}"/> of messages in the inbox.
         /// </summary>
-        public Listing<PrivateMessage> GetInbox(int max = -1) => Listing<PrivateMessage>.Create(WebAgent, InboxUrl, max, 100);
+        public Listing<ModeratableThing> GetInbox(int max = -1) => Listing<ModeratableThing>.Create(WebAgent, InboxUrl, max, 100);
 
         /// <summary>
         /// Get a <see cref="Listing{T}"/> of sent messages.
