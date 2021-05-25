@@ -22,6 +22,7 @@ namespace RedditSharp.Things
         private const string HideUrl = "/api/hide";
         private const string UnhideUrl = "/api/unhide";
         private const string SetFlairUrl = "/r/{0}/api/flair";
+        private const string SelectFlairUrl = "/r/{0}/api/selectflair";
         private const string MarkNSFWUrl = "/api/marknsfw";
         private const string UnmarkNSFWUrl = "/api/unmarknsfw";
         private const string ContestModeUrl = "/api/set_contest_mode";
@@ -91,6 +92,12 @@ namespace RedditSharp.Things
         [JsonProperty("link_flair_text")]
         public string LinkFlairText { get; private set; }
 
+        /// <summary>
+        /// Template ID of the link flair.
+        /// </summary>
+        [JsonProperty("flair_template_id")]
+        public string LinkFlairTemplateId { get; private set; }
+ 
         /// <summary>
         /// Number of comments on this post.
         /// </summary>
@@ -292,6 +299,23 @@ namespace RedditSharp.Things
             //TODO Unit test
             await Post.SetFlairAsync(this.WebAgent, this.SubredditName, this.FullName, flairText, flairClass).ConfigureAwait(false);
             LinkFlairText = flairText;
+        }
+
+        /// <summary>
+        /// Selects a flair template for the post.
+        /// </summary>
+        /// <param name="flairTemplateId">The template ID of the flair.</param>
+        /// <returns>A <see cref="Task"> representing the completion of the operation.</returns>
+        public async Task SelectFlairAsync(string flairTemplateId)
+        {
+            await WebAgent.Post(string.Format(SelectFlairUrl, SubredditName), new
+            {
+                api_type = "json",
+                link = FullName,
+                flair_template_id = flairTemplateId,
+            }).ConfigureAwait(false);
+
+            LinkFlairTemplateId = flairTemplateId;
         }
 
         /// <summary>
